@@ -14,12 +14,16 @@ variable "binary_path" {}
 
 source "oracle-oci" "ubuntu" {
   compartment_ocid = var.compartment_ocid
+
   source_image_filter {
-    operating_system         = "Canonical Ubuntu"
-    operating_system_version = "22.04"
-    image_type               = "platform"
-    most_recent              = true
+    filters {
+      operating_system         = "Canonical Ubuntu"
+      operating_system_version = "22.04"
+      image_type               = "platform"
+    }
+    most_recent = true
   }
+
   shape               = "VM.Standard.E2.1.Micro"
   subnet_ocid         = var.subnet_ocid
   availability_domain = var.availability_domain
