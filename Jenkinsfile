@@ -19,8 +19,8 @@ pipeline {
             steps {
                 sh '''
                 npm install
-                // npm install pkg --save-dev
-                // npx pkg . --targets node18-linux-x64 --output testwebapp
+                #npm install pkg --save-dev
+                #npx pkg . --targets node18-linux-x64 --output testwebapp
                 npm run build
                 '''
             }
