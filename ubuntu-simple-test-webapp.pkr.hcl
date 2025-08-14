@@ -19,9 +19,8 @@ source "oracle-oci" "ubuntu" {
   shape                = "VM.Standard.E2.1.Micro"
   base_image_ocid      = "ocid1.image.oc1.ap-hyderabad-1.aaaaaaaafs7imfvcicboqisaisiz5bbpuzbg5gicwjwvyhnhsvdaowuc3w4q"
   ssh_username         = "ubuntu"
-  skey_file            = "/var/lib/jenkins/.oci/oci_api_key.pem"
+  key_file             = "/var/lib/jenkins/.oci/oci_api_key.pem"
 }
-
 
 build {
   name    = "ubuntu-simple-test-webapp-oci"
