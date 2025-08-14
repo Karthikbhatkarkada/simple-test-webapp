@@ -1,0 +1,13 @@
+[Unit]
+Description=Simple Test Web App
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/webapp
+Restart=always
+User=ubuntu
+Environment=PORT=3000
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
