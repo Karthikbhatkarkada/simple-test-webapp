@@ -13,15 +13,22 @@ variable "availability_domain" {}
 variable "binary_path" {}
 
 source "oracle-oci" "ubuntu" {
-  compartment_ocid     = var.compartment_ocid
-  subnet_ocid          = var.subnet_ocid
-  availability_domain  = var.availability_domain
-  shape                = "VM.Standard.E2.1.Micro"
-  base_image_ocid      = "ocid1.image.oc1.ap-hyderabad-1.aaaaaaaafs7imfvcicboqisaisiz5bbpuzbg5gicwjwvyhnhsvdaowuc3w4q"
-  ssh_username         = "ubuntu"
-  ssh_private_key_file = /var/lib/jenkins/.oci/oci_api_key.pem
-}
+  compartment_ocid = var.compartment_ocid
 
+  source_image_filter {
+    filters {
+      operating_system         = "Canonical Ubuntu"
+      operating_system_version = "22.04"
+      image_type               = "platform"
+    }
+    most_recent = true
+  }
+
+  shape               = "VM.Standard.E2.1.Micro"
+  subnet_ocid         = var.subnet_ocid
+  availability_domain = var.availability_domain
+  ssh_username        = "ubuntu"
+}
 
 build {
   name    = "ubuntu-simple-test-webapp-oci"
