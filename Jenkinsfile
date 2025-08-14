@@ -5,7 +5,7 @@ pipeline {
         COMPARTMENT_OCID = credentials('oci-compartment-ocid')
         SUBNET_OCID      = credentials('oci-subnet-ocid')
         AVAIL_DOMAIN     = credentials('oci-availability-domain')
-        GIT_REPO_URL     = 'https://github.com/<your-username>/<your-repo>.git'
+        GIT_REPO_URL     = 'https://github.com/Karthikbhatkarkada/simple-test-webapp.git'
     }
 
     stages {
@@ -19,15 +19,16 @@ pipeline {
             steps {
                 sh '''
                 npm install
-                npm install pkg --save-dev
-                npx pkg . --targets node20-linux-x64 --output webapp
+                // npm install pkg --save-dev
+                // npx pkg . --targets node18-linux-x64 --output testwebapp
+                npm run build
                 '''
             }
         }
 
         stage('Archive Binary') {
             steps {
-                archiveArtifacts artifacts: 'webapp', fingerprint: true
+                archiveArtifacts artifacts: 'testwebapp', fingerprint: true
             }
         }
 
@@ -39,8 +40,8 @@ pipeline {
                   -var compartment_ocid=${COMPARTMENT_OCID} \
                   -var subnet_ocid=${SUBNET_OCID} \
                   -var availability_domain=${AVAIL_DOMAIN} \
-                  -var binary_path=webapp \
-                  ubuntu-nodeapp.pkr.hcl
+                  -var binary_path=testwebapp \
+                  ubuntu-simple-test-webapp.pkr.hcl
                 '''
             }
         }

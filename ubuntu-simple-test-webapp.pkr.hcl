@@ -27,27 +27,27 @@ source "oracle-oci" "ubuntu" {
 }
 
 build {
-  name    = "ubuntu-nodeapp-oci"
+  name    = "ubuntu-simple-test-webapp-oci"
   sources = ["source.oracle-oci.ubuntu"]
 
   # Upload binary from Jenkins
   provisioner "file" {
     source      = var.binary_path
-    destination = "/tmp/webapp"
+    destination = "/tmp/testwebapp"
   }
 
   # Install binary & systemd
   provisioner "shell" {
     inline = [
-      "sudo mv /tmp/webapp /usr/local/bin/webapp",
-      "sudo chmod +x /usr/local/bin/webapp",
-      "sudo tee /etc/systemd/system/webapp.service > /dev/null <<EOL",
+      "sudo mv /tmp/testwebapp /usr/local/bin/testwebapp",
+      "sudo chmod +x /usr/local/bin/testwebapp",
+      "sudo tee /etc/systemd/system/testwebapp.service > /dev/null <<EOL",
       "[Unit]",
       "Description=Simple Node.js Binary Web App",
       "After=network.target",
       "",
       "[Service]",
-      "ExecStart=/usr/local/bin/webapp",
+      "ExecStart=/usr/local/bin/testwebapp",
       "Restart=always",
       "User=ubuntu",
       "Environment=PORT=3000",
@@ -57,8 +57,8 @@ build {
       "WantedBy=multi-user.target",
       "EOL",
       "sudo systemctl daemon-reload",
-      "sudo systemctl enable webapp",
-      "sudo systemctl start webapp"
+      "sudo systemctl enable testwebapp",
+      "sudo systemctl start testwebapp"
     ]
   }
 }

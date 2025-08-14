@@ -3,7 +3,7 @@ Description=Simple Test Web App
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/webapp
+ExecStart=/usr/local/bin/testwebapp
 Restart=always
 User=ubuntu
 Environment=PORT=3000
