@@ -11,15 +11,17 @@ variable "compartment_ocid" {}
 variable "subnet_ocid" {}
 variable "availability_domain" {}
 variable "binary_path" {}
+variable "base_image_ocid" {}
+variable "key_file" {}
 
 source "oracle-oci" "ubuntu" {
   compartment_ocid     = var.compartment_ocid
   subnet_ocid          = var.subnet_ocid
   availability_domain  = var.availability_domain
   shape                = "VM.Standard.E2.1.Micro"
-  base_image_ocid      = "ocid1.image.oc1.ap-hyderabad-1.aaaaaaaafs7imfvcicboqisaisiz5bbpuzbg5gicwjwvyhnhsvdaowuc3w4q"
+  base_image_ocid      = var.base_image_ocid
   ssh_username         = "ubuntu"
-  key_file             = "/var/lib/jenkins/.oci/oci_api_key.pem"
+  key_file             = var.key_file
 }
 
 build {
